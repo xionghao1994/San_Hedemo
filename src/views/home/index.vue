@@ -5,7 +5,7 @@
              <span class="f14">乐富海邦园店…</span>
              <span><img src="~/assets/img/ic_message.png"></span>
          </div>
-         <div class="head-search">
+         <div class="head-search"  @click="next('search')">
             <i class="head-icon"></i>
             <input type="text" placeholder="请输入搜索关键词"> 
          </div>
@@ -83,7 +83,7 @@
       <div class="prod-list">
          <productList :data="productList"></productList>
       </div>
-     <div class="slogan"></div>
+      <div class="slogan"></div>
       <div class="prod-list">
          <productList :data="productList"></productList>
       </div>
@@ -99,7 +99,7 @@
               </li>
           </ul>
       </div>
-       <Scroll @loadMore="loadMore" :noMore="noMore" />
+     <Scroll @loadMore="loadMore" :noMore="noMore" />
   </div>
 </template>
 <script>
@@ -183,7 +183,11 @@ export default {
     methods:{
         loadMore(){
 
+        },
+        next(url){
+         this.$router.push({name:url})
         }
+
     },
     components:{
         productList:()=>import('components/common/productScroll'),

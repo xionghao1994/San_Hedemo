@@ -17,6 +17,14 @@ export default new Router({
         title:'首页'
       }
     },
+    {
+      path:'/search',
+      name:'search',
+      component:()=>import('./views/home/search.vue'),
+      meta:{
+        title:'搜索'
+      }
+    },
    {
     path:'/about', name:'about', component: about,
     meta:{
