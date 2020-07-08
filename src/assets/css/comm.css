@@ -1,0 +1,161 @@
+html {  
+    font-size: calc(100vw/3.75);  
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}  
+body{
+    font:16px "微软雅黑";
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*{
+    padding: 0px;
+    margin: 0px;
+    -webkit-overflow-scrolling: touch;
+
+}
+h2,i,b{
+    font-weight: normal;
+    font-style: normal;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration:none;
+    color:#1F1F1F;
+}
+input,button{
+    border: 0;
+    background: none;
+    outline : none;
+}
+img{
+    display: block;
+    max-width: 100%;
+}
+ button,input { cursor: pointer; -webkit-appearance: none;border-radius: 0;outline:0px;-webkit-tap-highlight-color:rgba(0,0,0,0)} 
+ .no-data-text{
+    font-size: 0.12rem!important;
+}
+ .f10{
+   font-size:0.1rem;
+ }
+  .f11{
+    font-size: 0.11rem;
+  }
+  .f12{
+    font-size: 0.12rem;
+  }
+  .f13{
+    font-size: 0.13rem;
+  }
+  .f14{
+    font-size: 0.14rem;
+  }
+ .f16 {
+    font-size: 0.16rem;
+  }
+  
+  .f18 {
+    font-size: 0.18rem;
+  }
+  
+  .f20 {
+    font-size: 0.2rem;
+  }
+  
+  .f22 {
+    font-size: 0.22rem;
+  }
+  
+  .f24 {
+    font-size: 0.24rem;
+  }
+  
+  .f26 {
+    font-size: 0.26rem;
+  }
+  
+  .f28 {
+    font-size: 0.28rem;
+  }
+  
+  .f30 {
+    font-size: 0.3rem;
+  }
+  
+  .f32 {
+    font-size: 0.32rem;
+  }
+  
+  .f34 {
+    font-size: 0.34rem;
+  }
+  
+  .f36 {
+    font-size: 0.36rem;
+  }
+  
+  .f38 {
+    font-size: 0.38rem;
+  }
+  
+  .f40 {
+    font-size: 0.4rem;
+  }
+  
+  .f44 {
+    font-size: 0.44rem;
+  }
+  
+  .f60 {
+    font-size: 0.6rem;
+  }
+  
+  .f66 {
+    font-size: 0.66rem;
+  }
+  
+  .f70 {
+    font-size: 0.7rem;
+  }
+  
+  .f90 {
+    font-size: 0.9rem;
+  }
+  .r_ed{
+    color:red;
+  }
+  .c-blue{
+    color:#0098FF;
+  }
+  .d-blue{
+      color:#0098FF;
+  }
+  .l-gray{
+      color:#D7D7D7;
+  }
+  .huiColor{
+    color:#707070;
+  }
+  .c-999{
+    color:#999999;
+  }
+  .c-000{
+    color:rgba(0,0,0,0.54);
+  }
+  .c-087{
+    color:rgba(0,0,0,0.87);
+  }
+  .color9797{
+    color:#979797;
+  }
+   /* 弹框动画效果 */
+  .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+      opacity: 0;
+  }
+ 
