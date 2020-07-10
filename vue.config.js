@@ -11,9 +11,9 @@ module.exports = {
         proxy: { //设置代理
             '/api': {
                 // 线上
-                target: '',
-                // 测试
                 // target: '',
+                // 测试
+                target: 'http://sanheliangpin.121.soft1024.com/api',
                 ws: true,  // proxy websockets 
                 changeOrigin: true,//开启代理  
                 pathRewrite: { '^/api': '/api' },  //这里重写路径运行后就代理到对应地址  

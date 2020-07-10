@@ -11,3 +11,4 @@
  */
 import { get, fetch, GetauthImage } from 'utils/http';
 
+export const BaseUrl = data => fetch('/api', data)

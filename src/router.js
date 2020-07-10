@@ -25,6 +25,22 @@ export default new Router({
         title:'搜索'
       }
     },
+    {
+      path:'/purchase',
+      name:'purchase',
+      component:()=>import('./views/home/purchase.vue'),
+      meta:{
+        title:'限时购'
+      }
+    },
+    {
+      path:'/prodDetail',
+      name:'prodDetail',
+      component:()=>import('./views/home/prodDetail.vue'),
+      meta:{
+        title:'商品详情'
+      }
+    },
    {
     path:'/about', name:'about', component: about,
     meta:{

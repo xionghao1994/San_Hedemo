@@ -3,12 +3,34 @@
  */
 
  import axios from 'axios'
+ import Mint from 'mint-ui';
+ import Vue from 'vue';
+ Vue.use(Mint);
 
  const http = axios.create({
      headers:{
          'Content-Type': 'application/json',
      }   
  });  
+
+ http.interceptors.request.use(function (config) {
+  config.withCredentials =true
+  // config.headers.Authorization = ``
+  Mint.Indicator.open({
+    text: '加载中...',
+    // spinnerType: 'triple-bounce'
+  });
+  return config;
+}, function (err) {
+  return Promise.reject(err);
+}
+);
+http.interceptors.response.use(function (response) {
+  Mint.Indicator.close();//关闭loading
+  return response;
+}, function (err) {
+  return Promise.reject(err);
+})
  
  /**
   * 封装图形验证码
@@ -61,13 +83,19 @@ export function get(url, params = {}) {
  * @returns {Promise}
  */
 
-export function fetch(url, method, data = {}) {
+export function fetch(url, data = {}) {
+    
     return new Promise((resolve, reject) => {
-        http({
-            method,
+        let formData = new FormData();
+        for (let key in data) {
+            if (data[key]) {
+              formData.append(key, data[key]);
+            }
+          }
+        http.post(
             url,
-            data
-        }).then(res => {
+            formData
+        ).then(res => {
             resolve(res.data);
         }, err => {
             reject(err)

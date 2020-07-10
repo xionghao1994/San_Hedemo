@@ -10,14 +10,18 @@
             <input type="text" placeholder="请输入搜索关键词"> 
          </div>
          <div class="head-banner">
-             
+             <van-swipe :autoplay="3000">
+                <van-swipe-item v-for="(i, index) in images" :key="index">
+                    <img v-lazy="i.img" />
+                </van-swipe-item>
+              </van-swipe>
          </div>
       </div>
       <div class="nav-list">
           <ul>
-            <li v-for="(item,index) in nav_list" :key="index">
-                <img :src="item.image">
-                <span class="f12">{{item.text}}</span>
+            <li v-for="(item,index) in project" :key="index">
+                <img :src="item.subjects.img">
+                <span class="f12">{{item.subjects.title}}</span>
             </li>
           </ul>
       </div>
@@ -26,7 +30,7 @@
             <p class="f12">会员活动全新升级！快来领奖吧</p>
       </div>
       <div class="content">
-        <div class="content-left">
+        <div class="content-left" @click="next('purchase')">
          <div class="content-pra-top">
             <img src="~/assets/img/img_xsms.png">
             <li class="f12">
@@ -79,11 +83,11 @@
             </div>
         </div>
       </div>
-      <div class="slogan"></div>
+      <div class="slogan"><img :src="Advert_Img" width="100%" height="100%"></div>
       <div class="prod-list">
          <productList :data="productList"></productList>
       </div>
-      <div class="slogan"></div>
+      <div class="slogan"><img :src="Advert_Img" width="100%" height="100%"></div>
       <div class="prod-list">
          <productList :data="productList"></productList>
       </div>
@@ -92,10 +96,10 @@
              <img src="~/assets/img/img_wntj.png" width="100%" height="100%"> 
           </div>
           <ul>
-              <li v-for="(item,index) in scroll_List" :key="index">
-                  <div class="thumd"><img :src="item.image" width="100%" height="100%"></div>
-                  <p class="f14 c-087">{{item.detail}}</p>
-                  <p class="f12 r_ed">{{item.price}}</p>
+              <li v-for="(i,index) in scroll_List" :key="index">
+                  <div class="thumd"><img :src="i.base_pic" width="100%" height="100%"></div>
+                  <p class="f13 c-087">{{i.item_name}}</p>
+                  <p class="f12 r_ed">{{i.price}}</p>
               </li>
           </ul>
       </div>
@@ -103,41 +107,14 @@
   </div>
 </template>
 <script>
+ import axios from 'axios';
+ import { BaseUrl } from '../utils/api'
 export default {
     data(){
         return{
             noMore: false,
-            nav_list:[{
-                image:require('../../assets/img/pic_1.png'),
-                text:'食品区'
-            },{
-                image:require('../../assets/img/pic_2.png'),
-                text:'礼品区'
-            },{
-                image:require('../../assets/img/pic_3.png'),
-                text:'优惠券'
-            },{
-                image:require('../../assets/img/pic_4.png'),
-                text:'积分商城'
-            },{
-                image:require('../../assets/img/pic_5.png'),
-                text:'眼镜眼眶'
-            },{
-                image:require('../../assets/img/pic_6.png'),
-                text:'米面粮油'
-            },{
-                image:require('../../assets/img/pic_7.png'),
-                text:'家用电器'
-            },{
-                image:require('../../assets/img/pic_8.png'),
-                text:'家居家纺'
-            },{
-                image:require('../../assets/img/pic_9.png'),
-                text:'电子产品'
-            },{
-                image:require('../../assets/img/pic_10.png'),
-                text:'手表专区'
-            }],
+            images: [],
+            project:[],
             productList:[{
                 detail:'花王（Merries）纸尿裤 S82片…',
                 price:'¥145.00',
@@ -156,45 +133,100 @@ export default {
                 price:'¥145.00',
                 image:require('../../assets/img/pic_9.png')
             }],
-            scroll_List:[{
-                image:require('../../assets/img/good1.png'),
-                detail:'￼￼美国爱他美幼儿配方奶粉3段(12-36月龄…',
-                price:'￥188.0'
-
-            },{
-                image:require('../../assets/img/good2.png'),
-                detail:'￼￼美国爱他美幼儿配方奶粉3段(12-36月龄…',
-                price:'￥188.0'
-
-            },{
-                image:require('../../assets/img/good3.png'),
-                detail:'￼￼美国爱他美幼儿配方奶粉3段(12-36月龄…',
-                price:'￥188.0'
-
-            },{
-                image:require('../../assets/img/good1.png'),
-                detail:'￼￼美国爱他美幼儿配方奶粉3段(12-36月龄…',
-                price:'￥188.0'
-
-            }]
+            base_Notice:{
+                api_name:'V1.index.notice.notices',
+                PHPSESSID:'if9qbp0rcnp0gdep84pr7e6878'
+            },
+            Advert_Img:'',
+            scroll_List:[]
 
         }
     },
+    created(){
+        this.getBanner()
+        this.getCommodity_Project()
+        this.hotSell()
+        this.getNotice()
+        this.getAdvert()
+        this.timeProd()
+    },
     methods:{
         loadMore(){
-
         },
         next(url){
          this.$router.push({name:url})
+        },
+        getBanner(){
+           BaseUrl({
+            api_name:'V1.index.index.slider'
+           }).then((res)=>{
+               if(res.code =='0'){
+                if(res.data.length>0){
+                    this.images = res.data
+                }
+               }
+           })
+        },
+        getCommodity_Project(){
+             BaseUrl({
+               api_name:'V1.index.Index.items'  
+             }).then((res)=>{
+                if(res.code =='0'){
+                    if(res.data.length>0){
+                        this.project = res.data
+                    }
+                }
+             })
+        },
+        async getNotice(){
+            let res =  await BaseUrl(this.base_Notice)
+            // console.log(res)
+        },
+        getAdvert(){
+           BaseUrl({
+               api_name:'V1.index.Index.advice'
+           }).then((res)=>{
+              if(res.code =='0'){
+                  let { img } = res.data;
+                  this.Advert_Img = img;
+              }
+           })
+        },
+        hotSell(){//NO数据
+           BaseUrl({
+             api_name:'V1.index.Index.seconds'
+           }).then((res)=>{
+              
+           }) 
+        },
+        timeProd(){//活动已结束
+            BaseUrl({
+               api_name:'V1.activity.activity.limitBuyItems',
+               limit_buy_id:'5'
+            }).then((res)=>{
+                if(res.code =='0'){
+                    // console.log(res)
+                }
+            })
+        },
+        Product_List(){
+          BaseUrl({
+              api_name:'V1.decoration.AdminItem.getItemList'
+          }).then((res)=>{
+             if(res.code =='0'){
+                 if(res.data.list.length>0){
+                     this.scroll_List = res.data.list
+                 }
+             }
+          })   
         }
-
     },
     components:{
         productList:()=>import('components/common/productScroll'),
         Scroll:()=>import('components/common/scroll')
     },
     mounted(){
-       
+        this.Product_List()
     }
 
 }
@@ -252,15 +284,17 @@ export default {
   .head-banner{
       width:3.51rem;
       height:1.76rem;
-      background:pink;
       border-radius:0.08rem;
       margin:0.16rem 0.12rem 0.02rem;
+  }
+  /deep/ .van-swipe img{
+      width:100%;
+      height:1.76rem;
   }
   .nav-list ul{
     width:100%;
   }
    .nav-list li{
-    width:0.48rem;
     text-align:center;
     color:rgba(0,0,0,0.54);
     display: inline-block;
@@ -269,7 +303,7 @@ export default {
     margin-right:0.13rem; 
    }
   .nav-list li img{
-      width:0.4rem;
+      /* width:0.4rem; */
       height:0.4rem;
       margin-bottom:0.05rem;
       margin-left:0.04rem;
@@ -423,7 +457,7 @@ export default {
       margin:0.02rem;
   }
   .more-list .thumd{
-      width:1.7rem;
-      height:1.7rem;
+      width:1.5rem;
+      height:1.5rem;
   }
 </style>

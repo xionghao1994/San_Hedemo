@@ -33,6 +33,8 @@ input,button{
 img{
     display: block;
     max-width: 100%;
+    outline:none;
+    border:none;
 }
  button,input { cursor: pointer; -webkit-appearance: none;border-radius: 0;outline:0px;-webkit-tap-highlight-color:rgba(0,0,0,0)} 
  .no-data-text{
@@ -55,6 +57,9 @@ img{
   }
  .f16 {
     font-size: 0.16rem;
+  }
+  .f17 {
+    font-size: 0.17rem;
   }
   
   .f18 {
@@ -124,8 +129,14 @@ img{
   .f90 {
     font-size: 0.9rem;
   }
+  #c-red{
+    color:#FF1C34;
+  }
+  #c-054{
+    color:rgba(0,0,0,0.54);
+  }
   .r_ed{
-    color:red;
+    color:#FF1C34;
   }
   .c-blue{
     color:#0098FF;
@@ -142,17 +153,29 @@ img{
   .c-333{
     color:#333333;
   }
+  .c-666{
+    color:#666666;
+  }
   .c-999{
     color:#999999;
   }
   .c-000{
     color:rgba(0,0,0,0.54);
   }
+  #c-87{
+    color:rgba(0,0,0,0.87);
+  }
   .c-087{
     color:rgba(0,0,0,0.87);
   }
+  .c-130{
+    color:#130000;
+  }
   .color9797{
     color:#979797;
+  }
+  .c-del{
+    text-decoration:line-through;
   }
    /* 弹框动画效果 */
   .fade-enter-active, .fade-leave-active {
